@@ -1,10 +1,14 @@
 import React from'react'; 
-import ToDoContainer from './todoComponent'
+import ToDoContainer from './todoComponent';
+import ToDoList from './toDoList';
 
 const App = () => {
 
     return(
-        <ToDoContainer />
+        <div>
+            <ToDoContainer />
+            <ToDoList /> 
+        </div>
     )
 }
 
