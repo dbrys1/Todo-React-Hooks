@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "webpack-dev-server"
+    "start": "webpack-dev-server --open"
   },
   "keywords": [],
   "author": "",
@@ -23,6 +23,7 @@
     "webpack-dev-server": "^3.9.0"
   },
   "dependencies": {
+    "@material-ui/core": "^4.6.1",
     "react": "^16.8.6",
     "react-dom": "^16.8.6"
   }
