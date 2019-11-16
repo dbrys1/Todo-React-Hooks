@@ -1,19 +1,32 @@
 import React, {useState} from 'react'; 
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
 
 
 
 const ToDoContainer = () => {
- 
+
 const [todo, setTodo] = useState([{
-    id: 0, 
-    description: ""
+  id:null,
+  description: ''
 }])
 
+const updateDescription = () => {
+  setTodo
+}
 
+const currentTodos = (e) => {
+  console.log(todo)
+  setTodo({...todo, 
+    id: todo.length,
+    description: e.target.value
+  })
 
+}
 
+//When item is submitted add to array with new id and description value 
 
 return (
     <Grid item xs={12} md={6}>
@@ -21,9 +34,9 @@ return (
       Todos
     </Typography>
     <form > 
-        <input value={todo.description}>
-        </input>
-        <button type="submit"  >Submit</button>
+        <TextField value={todo.description}>
+        </TextField>
+        <Button type="submit" variant="contained" color="primary" onSubmit={currentTodos} >Submit</Button>
     </form>
     </Grid>
     
@@ -60,3 +73,17 @@ export default ToDoContainer;
 
 
 
+
+
+    // State is an array of todo objects 
+
+
+    // Need to create a new object and add it to state when item is submitted
+
+    // Need to keep track of ID's --> can use filter method
+
+    //array.filter
+
+    // array.map((item) => item.id++)
+
+    // item.id arry.length-1
