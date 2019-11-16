@@ -1,13 +1,22 @@
 import React from'react'; 
 import ToDoContainer from './todoComponent';
-import ToDoList from './toDoList';
+
 
 const App = () => {
+ 
+  const style = {
+     display: 'flex', 
+     margin: 'auto',
+     justifyContent: 'center',
+     borderStyle: 'solid', 
+     borderWidth: '2px',
+     width: '500px',
+     backgroundColor: "#fff"
+  }
 
     return(
-        <div>
+        <div style={style}>
             <ToDoContainer />
-            <ToDoList /> 
         </div>
     )
 }

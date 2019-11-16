@@ -1,31 +1,50 @@
 import React, {useState} from 'react'; 
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
-
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
+import ToDoList from './toDoList'; 
 
 
 const ToDoContainer = () => {
- 
-const [todo, setTodo] = useState([{
-    id: 0, 
-    description: ""
-}])
+  
+  //Create a state for input
+  const [todoValue, setTodoValue] = useState('');
+  //Create state for todo items
+  const [todos, setTodo] = useState([])
 
+const currentTodos = () => {
+  setTodo([...todos, {id: todos.length + 1, description: todoValue }]);
+  console.log('here is my state', todos);
+}
 
+// Get value from input and setState
+const handleChange = (e) => {
+  setTodoValue(e.target.value);
+}
 
+const handleSubmit = (e) => {
+  e.preventDefault();
+  setTodoValue(''); 
+}
 
+//When item is submitted add to array with new id and description value 
+  const headerStyle = {
+    textAlign: 'center'
+  }
 
 return (
-    <Grid item xs={12} md={6}>
-    <Typography variant="h6" >
+    <div>
+    <Typography variant="h5"  style={headerStyle}>
       Todos
     </Typography>
-    <form > 
-        <input value={todo.description}>
-        </input>
-        <button type="submit"  >Submit</button>
+    <form onSubmit= {handleSubmit}> 
+        <TextField name="description" value={todoValue} onChange={handleChange}>
+        </TextField>
+        <Button type="submit" variant="contained" color="primary" onClick={currentTodos} >Submit</Button>
     </form>
-    </Grid>
+    <ToDoList todos={todos} />
+   </div>
     
 )
 

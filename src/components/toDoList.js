@@ -1,15 +1,18 @@
 import React from 'react'; 
 import ListItem from '@material-ui/core/ListItem';
 import List from '@material-ui/core/List';
-import Avatar from '@material-ui/core/Avatar';
-import ListItemAvatar from '@material-ui/core/ListItemAvatar';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
 
-const ToDoList = () => {
-  
-   const todolist = ['Clean', 'Cook', 'Laundry']  
+const ToDoList = (props) => {
    
-   const listOfTodo = todolist.map((item) => <ListItem>{item}</ListItem>)
-    
+   
+   const listOfTodo = props.todos.map((item) => 
+   <ListItem>
+       <ListItemIcon>
+        </ListItemIcon>
+        {item.description}
+ </ListItem>)
+   
     return (
         <List> 
             {listOfTodo}
