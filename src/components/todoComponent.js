@@ -42,6 +42,7 @@ return (
         <TextField name="description" value={todoValue} onChange={handleChange}>
         </TextField>
         <Button type="submit" variant="contained" color="primary" onClick={currentTodos} >Submit</Button>
+
     </form>
     <ToDoList todos={todos} />
    </div>
@@ -79,3 +80,17 @@ export default ToDoContainer;
 
 
 
+
+
+    // State is an array of todo objects 
+
+
+    // Need to create a new object and add it to state when item is submitted
+
+    // Need to keep track of ID's --> can use filter method
+
+    //array.filter
+
+    // array.map((item) => item.id++)
+
+    // item.id arry.length-1
