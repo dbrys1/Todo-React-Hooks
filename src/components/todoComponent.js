@@ -28,6 +28,12 @@ const handleSubmit = (e) => {
   setTodoValue(''); 
 }
 
+const handleDelete = (item) => {
+  console.log(`Passed in id ${item}`)
+  const updatedArray = todos.filter((items) => items.id != item); 
+  setTodo([...todos, updatedArray])
+}
+
 //When item is submitted add to array with new id and description value 
   const headerStyle = {
     textAlign: 'center'
@@ -44,7 +50,7 @@ return (
         <Button type="submit" variant="contained" color="primary" onClick={currentTodos} >Submit</Button>
 
     </form>
-    <ToDoList todos={todos} />
+    <ToDoList todos={todos} handleDelete={handleDelete} />
    </div>
     
 )
