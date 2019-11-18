@@ -1,6 +1,5 @@
 import React, {useState} from 'react'; 
 import Typography from '@material-ui/core/Typography';
-import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import ToDoList from './toDoList'; 
@@ -15,7 +14,6 @@ const ToDoContainer = () => {
 
 const currentTodos = () => {
   setTodo([...todos, {id: todos.length + 1, description: todoValue }]);
-  console.log('here is my state', todos);
 }
 
 // Get value from input and setState
@@ -29,9 +27,9 @@ const handleSubmit = (e) => {
 }
 
 const handleDelete = (item) => {
-  console.log(`Passed in id ${item}`)
   const updatedArray = todos.filter((items) => items.id != item); 
-  setTodo([...todos, updatedArray])
+  console.log(updatedArray)
+  setTodo([...updatedArray])
 }
 
 //When item is submitted add to array with new id and description value 
