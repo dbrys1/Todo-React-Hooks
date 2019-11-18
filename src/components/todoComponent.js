@@ -1,6 +1,5 @@
 import React, {useState} from 'react'; 
 import Typography from '@material-ui/core/Typography';
-import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import ToDoList from './toDoList'; 
@@ -15,7 +14,6 @@ const ToDoContainer = () => {
 
 const currentTodos = () => {
   setTodo([...todos, {id: todos.length + 1, description: todoValue }]);
-  console.log('here is my state', todos);
 }
 
 // Get value from input and setState
@@ -26,6 +24,12 @@ const handleChange = (e) => {
 const handleSubmit = (e) => {
   e.preventDefault();
   setTodoValue(''); 
+}
+
+const handleDelete = (item) => {
+  const updatedArray = todos.filter((items) => items.id != item); 
+  console.log(updatedArray)
+  setTodo([...updatedArray])
 }
 
 //When item is submitted add to array with new id and description value 
@@ -42,8 +46,9 @@ return (
         <TextField name="description" value={todoValue} onChange={handleChange}>
         </TextField>
         <Button type="submit" variant="contained" color="primary" onClick={currentTodos} >Submit</Button>
+
     </form>
-    <ToDoList todos={todos} />
+    <ToDoList todos={todos} handleDelete={handleDelete} />
    </div>
     
 )
@@ -79,3 +84,17 @@ export default ToDoContainer;
 
 
 
+
+
+    // State is an array of todo objects 
+
+
+    // Need to create a new object and add it to state when item is submitted
+
+    // Need to keep track of ID's --> can use filter method
+
+    //array.filter
+
+    // array.map((item) => item.id++)
+
+    // item.id arry.length-1

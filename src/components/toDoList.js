@@ -1,17 +1,28 @@
 import React from 'react'; 
 import ListItem from '@material-ui/core/ListItem';
 import List from '@material-ui/core/List';
+import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
+import Avatar from '@material-ui/core/Avatar';
+import EditIcon from '@material-ui/icons/Edit';
+import DeleteIcon from '@material-ui/icons/Delete';
 
 const ToDoList = (props) => {
-   
-   
+    
+   // Mapping over todos and assiging to a new array   
    const listOfTodo = props.todos.map((item) => 
-   <ListItem>
-       <ListItemIcon>
-        </ListItemIcon>
+   <ListItem >
+       <ListItemAvatar>
+            <Avatar>
+                <EditIcon color='primary' fontSize='small' backgroundColor='none'/>
+            </Avatar>
+        </ListItemAvatar>
         {item.description}
- </ListItem>)
+        <ListItemIcon >
+            <DeleteIcon  color='secondary' onClick={()=> props.handleDelete(item.id)}/>
+        </ListItemIcon >
+      
+ </ListItem >)
    
     return (
         <List> 
