@@ -14,7 +14,7 @@ const ToDoList = (props) => {
    <ListItem >
        <ListItemAvatar>
             <Avatar>
-                <EditIcon color='primary' fontSize='small' backgroundColor='none'/>
+                <EditIcon color='primary' fontSize='small' />
             </Avatar>
         </ListItemAvatar>
         {item.description}
