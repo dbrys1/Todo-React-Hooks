@@ -11,12 +11,17 @@ const ToDoContainer = () => {
   const [todoValue, setTodoValue] = useState('');
   //Create state for todo items
   const [todos, setTodo] = useState([])
-
+  
+  const url = `http://localhost:4000/`; 
 const currentTodos = () => {
-  setTodo([...todos, {id: todos.length + 1, description: todoValue }]);
+  let todoVal = todoValue && todoValue.trim(); 
+  if(!todoVal){
+    return
+  }
+  setTodo([...todos, {id: todos.length + 1, description: todoVal }]);
   // Make a post request for adding new item
   makeRestCall()
-
+  postingTodoData(todos.length +1, todoVal); 
 }
 
 // Get value from input and setState
@@ -35,13 +40,32 @@ const handleDelete = (item) => {
   console.log(updatedArray)
   setTodo([...updatedArray])
   // Make a delete request
-
 }
 
 
 const makeRestCall = async() => {
-  const res =  await axios.get(`http://localhost:4000/`); 
-   console.log(res); 
+  const res =  await axios.get(url); 
+  console.log(res); 
+  
+}
+
+
+const postingTodoData = async(id,desc) => {
+  //Create post url that will be used 
+  const todoData = {
+    id: id, 
+    description: desc
+  }
+  try{ 
+    const res = await axios.post(`${url}todo`,todoData)
+    console.log(res); 
+ 
+  }
+  catch(e){
+    console.log(e); 
+  }
+  
+}
 
 //When item is submitted add to array with new id and description value 
   const headerStyle = {
