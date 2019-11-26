@@ -16,6 +16,7 @@ const currentTodos = () => {
   setTodo([...todos, {id: todos.length + 1, description: todoValue }]);
   // Make a post request for adding new item
   makeRestCall()
+
 }
 
 // Get value from input and setState
@@ -34,13 +35,13 @@ const handleDelete = (item) => {
   console.log(updatedArray)
   setTodo([...updatedArray])
   // Make a delete request
+
 }
 
 
 const makeRestCall = async() => {
   const res =  await axios.get(`http://localhost:4000/`); 
    console.log(res); 
-}
 
 //When item is submitted add to array with new id and description value 
   const headerStyle = {
