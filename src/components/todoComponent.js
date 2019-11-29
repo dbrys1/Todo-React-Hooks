@@ -1,4 +1,4 @@
-import React, {useState} from 'react'; 
+import React, {useState, useEffect} from 'react'; 
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
@@ -21,7 +21,19 @@ const currentTodos = () => {
   setTodo([...todos, {id: todos.length + 1, description: todoVal }]);
   // Make a post request for adding new item
   makeRestCall()
-  postingTodoData(todos.length +1, todoVal); 
+  //postingTodoData(todos.length +1, todoVal); 
+}
+
+useEffect(()=> {
+  // make request to get all data for 
+  allTodos();
+},[])
+
+
+const allTodos = async() => {
+    const getTodos = await axios.get(url); 
+    console.log(getTodos.data.data);
+    setTodo([...getTodos.data.data]); 
 }
 
 // Get value from input and setState

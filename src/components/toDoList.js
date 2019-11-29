@@ -19,7 +19,7 @@ const ToDoList = (props) => {
         </ListItemAvatar>
         {item.description}
         <ListItemIcon >
-            <DeleteIcon  color='secondary' onClick={()=> props.handleDelete(item.id)}/>
+            <DeleteIcon  color='secondary' onClick={()=> props.handleDelete(item._id)}/>
         </ListItemIcon >
       
  </ListItem >)
