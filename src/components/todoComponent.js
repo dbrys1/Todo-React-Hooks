@@ -4,6 +4,7 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import ToDoList from './toDoList'; 
 import axios from 'axios'; 
+import {allTodos, postingTodoData} from '../services/todoService'
 
 const ToDoContainer = () => {
   
@@ -18,23 +19,27 @@ const currentTodos = () => {
   if(!todoVal){
     return
   }
-  setTodo([...todos, {id: todos.length + 1, description: todoVal }]);
-  // Make a post request for adding new item
-  makeRestCall()
-  //postingTodoData(todos.length +1, todoVal); 
+  setTodo([...todos, { description: todoVal }]);
+
+  //Posting Todo 
+  postingTodoData(todoVal); 
 }
 
 useEffect(()=> {
   // make request to get all data for 
-  allTodos();
+  const items = allTodos()
+  items.then(res => {
+    try{
+      setTodo([...res])
+    }
+    catch(err){
+        console.log(err); 
+      
+    }
+    
+  })
+  //setTodo([...items]);
 },[])
-
-
-const allTodos = async() => {
-    const getTodos = await axios.get(url); 
-    console.log(getTodos.data.data);
-    setTodo([...getTodos.data.data]); 
-}
 
 // Get value from input and setState
 const handleChange = (e) => {
@@ -62,22 +67,22 @@ const makeRestCall = async() => {
 }
 
 
-const postingTodoData = async(id,desc) => {
-  //Create post url that will be used 
-  const todoData = {
-    id: id, 
-    description: desc
-  }
-  try{ 
-    const res = await axios.post(`${url}todo`,todoData)
-    console.log(res); 
+// const postingTodoData = async(id,desc) => {
+//   //Create post url that will be used 
+//   const todoData = {
+//     id: id, 
+//     description: desc
+//   }
+//   try{ 
+//     const res = await axios.post(`${url}todo`,todoData)
+//     console.log(res); 
  
-  }
-  catch(e){
-    console.log(e); 
-  }
+//   }
+//   catch(e){
+//     console.log(e); 
+//   }
   
-}
+// }
 
 //When item is submitted add to array with new id and description value 
   const headerStyle = {
