@@ -8,7 +8,6 @@ import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 
 const ToDoList = (props) => {
-    
    // Mapping over todos and assiging to a new array   
    const listOfTodo = props.todos.map((item) => 
    <ListItem >

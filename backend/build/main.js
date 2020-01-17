@@ -92,19 +92,62 @@ module.exports =
 /*!**********************!*\
   !*** ./src/index.js ***!
   \**********************/
-/*! no exports provided */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var express__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! express */ "express");
-/* harmony import */ var express__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(express__WEBPACK_IMPORTED_MODULE_0__);
- //import mongoose from 'mongoose'; 
+const express = __webpack_require__(/*! express */ "express");
 
-const app = express__WEBPACK_IMPORTED_MODULE_0___default()(); //Port for local testing 
+const cors = __webpack_require__(/*! cors */ "cors");
 
-const port = 3000;
-app.get('/', (req, res) => res.send('Hello, this will be the backend of the todo app'));
+const bodyParser = __webpack_require__(/*! body-parser */ "body-parser"); //import mongoose from 'mongoose'; 
+
+
+const mongoose = __webpack_require__(/*! mongoose */ "mongoose");
+
+const todoSchema = new mongoose.Schema({
+  description: String
+});
+let Todo = mongoose.model("Todo", todoSchema);
+const app = express();
+app.use(cors());
+app.use(bodyParser.json()); //Port for local testing 
+
+const port = 4000;
+mongoose.Promise = global.Promise;
+mongoose.connect("mongodb://localhost:27017/tododb");
+app.get('/', function (req, res) {
+  Todo.find({}, (err, data) => {
+    try {
+      res.json({
+        data
+      });
+    } catch {
+      res.send(err);
+    }
+  });
+});
+app.post('/todo', function (req, res) {
+  console.log(req.body.description);
+  let todoData = new Todo({
+    description: req.body.description
+  });
+  todoData.save().then(item => {
+    res.send("Item has been recieved");
+    res.send(todoData._id);
+  }).catch(err => {
+    res.status(400).send("unable to save to database");
+  });
+});
+app.delete('/removeTodo/:id', function (req, res) {
+  console.log(req.params);
+  Todo.deleteOne(req.params, function (err) {
+    if (err) return handleError(err); // deleted at most one tank document
+    else {
+        console.log('Item was deleted');
+      }
+  });
+}); //app.post('/',())
+
 app.listen(port, () => console.log(`App is listening on port ${port}`));
 
 /***/ }),
@@ -116,8 +159,30 @@ app.listen(port, () => console.log(`App is listening on port ${port}`));
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /Users/dillonbrys/Documents/React_Starter/backend/src/index.js */"./src/index.js");
+module.exports = __webpack_require__(/*! /Users/dillonbrys/Documents/Development/React_Starter/backend/src/index.js */"./src/index.js");
 
+
+/***/ }),
+
+/***/ "body-parser":
+/*!******************************!*\
+  !*** external "body-parser" ***!
+  \******************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = require("body-parser");
+
+/***/ }),
+
+/***/ "cors":
+/*!***********************!*\
+  !*** external "cors" ***!
+  \***********************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = require("cors");
 
 /***/ }),
 
@@ -129,6 +194,17 @@ module.exports = __webpack_require__(/*! /Users/dillonbrys/Documents/React_Start
 /***/ (function(module, exports) {
 
 module.exports = require("express");
+
+/***/ }),
+
+/***/ "mongoose":
+/*!***************************!*\
+  !*** external "mongoose" ***!
+  \***************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = require("mongoose");
 
 /***/ })
 
