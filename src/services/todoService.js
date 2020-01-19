@@ -43,13 +43,8 @@ export const postingTodoData = async (desc) => {
  * @param {*} todo 
  */
 export const removeTodo = async (todo) => {
-  const item = {
-    id: `ObjectId('${todo}')`
-  }
-
   try {
-    console.log(item);
-    const resp = await axios.delete(`${url}removeTodo/${item.id}`)
+    const resp = await axios.delete(`${url}removeTodo/${todo}`)
     console.log(resp);
   }
   catch (e) {

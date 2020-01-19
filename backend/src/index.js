@@ -51,12 +51,10 @@ app.post('/todo', function (req, res) {
 app.delete('/removeTodo/:id', function (req, res) {
   console.log(req.params);
 
-  Todo.deleteOne(req.params, function (err) {
-    if (err) return handleError(err);
-    // deleted at most one tank document
-    else {
-      console.log('Item was deleted');
-    }
+  Todo.remove({ _id: req.params.id }, function (err) {
+    if (err) return console.log(err);
+
+    res.status(204).send();
   });
 })
 
