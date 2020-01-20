@@ -132,8 +132,7 @@ app.post('/todo', function (req, res) {
     description: req.body.description
   });
   todoData.save().then(item => {
-    res.send("Item has been recieved");
-    res.send(todoData._id);
+    res.send(item); //res.send(todoData._id)
   }).catch(err => {
     res.status(400).send("unable to save to database");
   });

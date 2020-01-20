@@ -3,8 +3,7 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import ToDoList from './toDoList';
-import axios from 'axios';
-import { allTodos, postingTodoData, removeTodo } from '../services/todoService'
+import { getTodo, addTodo, removeTodo } from '../services/todoService'
 
 const ToDoContainer = () => {
 
@@ -18,32 +17,27 @@ const ToDoContainer = () => {
     if (!todoVal) {
       return
     }
-    setTodo([...todos, { description: todoVal }]);
-
     //Posting Todo 
-    postingTodoData(todoVal);
+    addTodo(todoVal).then(item => { setTodo([...todos, item.data]) })
   }
 
   useEffect(() => {
     // make request to get all data for 
-    const items = allTodos()
+    const items = getTodo()
     items.then(res => {
       try {
         setTodo([...res])
       }
       catch (err) {
         console.log(err);
-
       }
-
     })
-    //setTodo([...items]);
+
   }, [])
 
   // Get value from input and setState
   const handleChange = (e) => {
     setTodoValue(e.target.value);
-
   }
 
   const handleSubmit = (e) => {
@@ -52,15 +46,10 @@ const ToDoContainer = () => {
   }
 
   const handleDelete = (item) => {
-    removeTodo(item);
-
-  }
-
-
-  const makeRestCall = async () => {
-    const res = await axios.get(url);
-    console.log(res);
-
+    removeTodo(item).then(() => {
+      const updateTodo = todos.filter(passedItem => passedItem._id !== item);
+      setTodo([...updateTodo]);
+    })
   }
 
 
@@ -82,9 +71,7 @@ const ToDoContainer = () => {
       </form>
       <ToDoList todos={todos} handleDelete={handleDelete} />
     </div>
-
   )
-
 }
 
 export default ToDoContainer; 

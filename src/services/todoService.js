@@ -2,12 +2,11 @@ import axios from 'axios';
 // Url for express webserver
 const url = `http://localhost:4000/`;
 
-
 /** 
  * Inital Get request when component mounts
  * returns all todo items stored in mongoose database
 */
-export const allTodos = async () => {
+export const getTodo = async () => {
   try {
     const getTodos = await axios.get(url);
     return getTodos.data.data;
@@ -22,15 +21,14 @@ export const allTodos = async () => {
  * postingTodoData method 
  * @param {*} desc Description passed from user input
  */
-export const postingTodoData = async (desc) => {
+export const addTodo = async (desc) => {
   //Create post url that will be used 
   const todoData = {
     description: desc
   }
   try {
-    const res = await axios.post(`${url}todo`, todoData)
-    console.log(res);
-
+    return await axios.post(`${url}todo`, todoData)
+    
   }
   catch (e) {
     console.log(e);
@@ -39,17 +37,15 @@ export const postingTodoData = async (desc) => {
 }
 
 /**
- * Delete selected todo when trash icon pressed
+ * Delete selected todo 
  * @param {*} todo 
  */
 export const removeTodo = async (todo) => {
   try {
-    const resp = await axios.delete(`${url}removeTodo/${todo}`)
-    console.log(resp);
+    await axios.delete(`${url}removeTodo/${todo}`)
   }
   catch (e) {
     console.log(e)
   }
-
 
 }
