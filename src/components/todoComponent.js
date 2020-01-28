@@ -3,17 +3,16 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import ToDoList from './toDoList';
+import { withRouter } from 'react-router-dom';
 import { getTodo, addTodo, removeTodo } from '../services/todoService';
-import Todo from './Todo'
 
-const ToDoContainer = () => {
+
+const ToDoContainer = ({ history }) => {
 
   //Create a state for input
   const [todoValue, setTodoValue] = useState('');
   //Create state for todo items
   const [todos, setTodo] = useState([])
-
-  const[routePath, setRoutePath] = useState('')
 
   const currentTodos = () => {
     let todoVal = todoValue && todoValue.trim();
@@ -56,50 +55,28 @@ const ToDoContainer = () => {
   }
 
   const handleComponentRender = (item) => {
-    if(item !== ''){
-      setRoutePath(item)
-    }else{
-      setRoutePath(null);
-    }
-    
-    
+    history.push(`/todos/${item._id}`);
   }
-
 
   //When item is submitted add to array with new id and description value 
   const headerStyle = {
     textAlign: 'center'
   }
-if(routePath !== ''){
-  console.log(routePath)
-  return(
-  <div>
-      <Typography variant="h5" style={headerStyle}>
-        Todos
-    </Typography>
-    <Todo itemDesc={routePath} />
-  </div>
-  )
-}else {
   return (
-
     <div>
       <Typography variant="h5" style={headerStyle}>
         Todos
     </Typography>
-    
+
       <form onSubmit={handleSubmit}>
         <TextField name="description" value={todoValue} onChange={handleChange}>
         </TextField>
         <Button type="submit" variant="contained" color="primary" onClick={currentTodos} >Submit</Button>
-
       </form>
-      <ToDoList todos={todos} handleDelete={handleDelete} handleComponentRender={handleComponentRender} />
+
+      <ToDoList todos={todos} handleDelete={handleDelete} onComponentRender={handleComponentRender} />
     </div>
   )
-
-}
- 
 }
 
-export default ToDoContainer; 
+export default withRouter(ToDoContainer);
